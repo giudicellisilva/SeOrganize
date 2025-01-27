@@ -1,11 +1,14 @@
-export const APP_KEY = "APPKEY";
-
 export function getStorageItem(key: string){
     if(typeof window === "undefined") return;
 
-    const data = window.localStorage.getItem(`${APP_KEY}_${key}`);
+    const data = window.localStorage.getItem(`${process.env.APP_KEY}_${key}`);
 
-    return JSON.parse(data!);
+    if(data && data != 'undefined'){
+        console.log("data", data);
+        return JSON.parse(data!);
+    }else{
+        return "";
+    }
 }
 
 export function setStorageItem(key: string, value: unknown){
@@ -13,11 +16,11 @@ export function setStorageItem(key: string, value: unknown){
 
     const data = JSON.stringify(value);
 
-    return window.localStorage.setItem(`${APP_KEY}_${key}`, data);
+    return window.localStorage.setItem(`${process.env.APP_KEY}_${key}`, data);
 }
 
 export function removeStorageItem(key: string){
     if(typeof window === "undefined") return;
 
-    return window.localStorage.removeItem(`${APP_KEY}_${key}`);
+    return window.localStorage.removeItem(`${process.env.APP_KEY}_${key}`);
 }

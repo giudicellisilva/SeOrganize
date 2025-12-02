@@ -4,7 +4,6 @@ export function getStorageItem(key: string){
     const data = window.localStorage.getItem(`${process.env.APP_KEY}_${key}`);
 
     if(data && data != 'undefined'){
-        console.log("data", data);
         return JSON.parse(data!);
     }else{
         return "";

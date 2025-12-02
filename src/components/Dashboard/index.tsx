@@ -1,8 +1,15 @@
-import dashboardModule from "./dashboard.module.scss";
+'use client';
+import style from "./dashboard.module.scss";
+import Phrases from "./Phrases";
 
-const Dashboard = () =>{
+const Dashboard = () =>{ 
+
     return(
-        <h1>Dashboard</h1>
+        <>
+            <h1>Dashboard</h1>
+            <Phrases />
+        </>
+
     )
 }
 

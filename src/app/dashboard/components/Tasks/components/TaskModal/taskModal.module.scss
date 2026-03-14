@@ -1,0 +1,60 @@
+@import "./src/app/_variables";
+
+.taskModal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1100;
+
+  &__container {
+    width: 100%;
+    max-width: 450px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &__title { color: $text-primary; }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      label { color: $text-secondary; font-weight: bold; font-size: 0.9rem; }
+
+      &__input {
+        background-color: $background;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1.2px solid $color-secondary;
+        outline: none;
+      }
+
+      &__saveBtn {
+        background-color: $color-primary;
+        color: $text-secondary;
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid $color-secondary;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+    }
+
+    &__close {
+      background: none;
+      border: 1px solid $color-secondary;
+      color: $text-secondary;
+      padding: 8px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  }
+}

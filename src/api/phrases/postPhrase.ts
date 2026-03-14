@@ -1,9 +1,8 @@
-import Phrases from "@/app/dashboard/components/Phrases";
 import api from "../httpCommon";
 import Phrase from "@/interfaces/Phrase";
 
-export async function putPhrases(id: String, phrase: Phrase){
-    return await api.put(`/phrases/${id}`, 
+export async function postPhrase(phrase: Phrase){
+    return await api.post("/phrase", 
       {
         "phrase": phrase.phrase,
         "author": phrase.author,

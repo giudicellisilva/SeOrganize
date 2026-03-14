@@ -3,7 +3,7 @@ import { checkUserAuthenticated } from "@/functions/checkIsUserAuthenticated";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect, useState } from "react"
 import api from "@/api/httpCommon";
-import { getStorageItem, setStorageItem } from "@/utils/localStore";
+import { getStorageItem, setStorageItem } from "@/functions/localStore";
 import { useMutation } from "@tanstack/react-query";
 import { postValidateToken } from "@/api/login/postValidateToken";
 import { APP_ROUTES } from "@/constants/appRoutes";
@@ -19,10 +19,8 @@ const PrivateRoute = (pros: PrivateRouteProps) =>{
     const [authorized, setAuthorized] =  useState(false);
     const [token, setToken] = useState(getStorageItem("token"));
 
-    const [refreshToken, setRefreshToken] = useState(getStorageItem("refreshToken"));
-
-    //const isUserAuthentificated = checkUserAuthenticated();
-
+    const [refreshToken] = useState(getStorageItem("refreshToken"));
+    
     useEffect(()=> {
         if(token){
             mutate();

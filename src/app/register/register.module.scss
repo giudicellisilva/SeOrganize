@@ -1,0 +1,64 @@
+@import "./src/app/_variables";
+
+.register {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+
+  padding: 50px;
+
+  &__content {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+    padding-top: 30px;
+
+    background-image: url("../../../public/assets/backgorundLogin.png");
+    background-size: cover;
+
+    &__title {
+      color: $text-primary;
+    }
+
+    &__labels {
+
+      .contentLabel {
+        display: flex;
+        flex-direction: column;
+
+        margin-top: 10px;
+
+        &__label {
+          color: $text-primary;
+        }
+
+        &__input {
+          background-color: $background;
+          min-width: 200px;
+          padding: .12rem .5rem;
+          border-radius: 5px;
+          outline: none;
+          border: 1.2px solid $color-secondary;
+        }
+
+      }
+    }
+
+    &__button {
+      background-color: $color-primary;
+      padding: 10px 57px;
+      border: 1px solid $color-secondary;
+      color: $text-secondary;
+      border-radius: 12px;
+    }
+
+    &__status {
+      background-color: $background;
+      padding: 2px 7px;
+    }
+  }
+}

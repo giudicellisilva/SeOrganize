@@ -1,0 +1,114 @@
+$background: #F4F4F4;
+$color-primary: #FF8C42;
+$color-secondary: #264653;
+$text-primary: #FF8C42;
+$text-secondary: #264653;
+
+.phrasesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+
+  .displayArea {
+    font-style: italic;
+    color: $text-secondary;
+    text-align: center;
+    font-size: 1.1rem;
+    min-height: 50px;
+  }
+
+  .editButton {
+    background-color: $color-secondary;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    &:hover { opacity: 0.9; }
+  }
+}
+
+// Estilos do Modal
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: $background;
+  width: 90%;
+  max-width: 500px;
+  padding: 2rem;
+  border-radius: 15px;
+  max-height: 80vh;
+  overflow-y: auto;
+
+  h2 { color: $text-secondary; margin-bottom: 1.5rem; }
+}
+
+.phraseList {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 2rem;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    color: $text-secondary;
+
+    .deleteBtn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+  }
+}
+
+.addArea {
+  display: flex;
+  gap: 10px;
+  
+  input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid $color-secondary;
+    border-radius: 6px;
+  }
+
+  .addBtn {
+    background-color: $color-primary;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+}
+
+.closeBtn {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid $color-secondary;
+  color: $color-secondary;
+  border-radius: 6px;
+  cursor: pointer;
+}

@@ -1,64 +1,107 @@
-@import "./src/app/_variables";
+@import "../../app/variables"; // Certifique-se que o caminho está correto para suas variáveis
 
-.login{
-    width: 100vw;
-    height: 100vh;
+.login {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; // Centraliza verticalmente também
+  background-color: $background;
+  padding: 20px;
 
+  &__content {
+    width: 100%;
+    max-width: 450px; // Mais elegante que 70% fixo
+    min-height: 500px;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    gap: 40px; // Reduzi um pouco para não ficar disperso
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    
+    // Background com imagem e tratamento
+    background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), 
+                      url("../../../public/assets/backgorundLogin.png");
+    background-size: cover;
+    background-position: center;
 
-    padding: 50px;
+    &__title {
+      color: $text-secondary; // Usei o secondary aqui para contraste
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 0;
+    }
 
-    &__content{
-        width: 70%;
+    &__labels {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      .contentLabel {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        gap: 80px;
-        padding-top: 30px;
-        
-        background-image: url("../../../public/assets/backgorundLogin.png");
-        background-size: cover; 
+        gap: 8px;
 
-        &__title{
-            color: $text-primary;
+        &__label {
+          color: $text-secondary;
+          font-weight: 600;
+          font-size: 0.9rem;
         }
 
-        &__labels{
+        &__input {
+          background-color: rgba($background, 0.8);
+          min-width: 200px;
+          padding: 12px 15px; // Padding mais confortável
+          border-radius: 8px;
+          outline: none;
+          border: 1.5px solid rgba($color-secondary, 0.3);
+          transition: all 0.3s ease;
 
-            .contentLabel{
-                display: flex;
-                flex-direction: column;
-                
-                margin-top: 10px;
-
-                &__label{
-                    color: $text-primary;
-                }
-
-                &__input{
-                    background-color: $background;
-                    min-width: 200px;
-                    padding: .12rem .5rem;
-                    border-radius: 5px;
-                    outline: none;
-                    border: 1.2px solid $color-secondary;
-                }
-
-            }
+          &:focus {
+            border-color: $color-primary;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+          }
         }
-
-        &__button{
-            background-color: $color-primary;
-            padding: 10px 57px;
-            border: 1px solid $color-secondary;
-            color: $text-secondary;
-            border-radius: 12px;
-        }
-        
-        &__status{
-            background-color: $background;
-            padding: 2px 7px;
-        }
+      }
     }
+
+    &__button {
+      width: 100%; // Botão ocupando a largura total fica melhor em formulários
+      background-color: $color-primary;
+      padding: 14px;
+      border: none; // Removi a borda secondary para um visual mais moderno
+      color: white; // Texto branco no botão laranja costuma ler melhor
+      font-weight: bold;
+      font-size: 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba($color-primary, 0.3);
+
+      &:hover {
+        transform: translateY(-2px);
+        filter: brightness(1.1);
+        box-shadow: 0 6px 15px rgba($color-primary, 0.4);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    &__status {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: $text-secondary;
+      background-color: rgba($background, 0.5);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-style: italic;
+    }
+  }
 }

@@ -1,10 +1,11 @@
 import Phrases from "./components/Phrases";
+import Task from "./components/Tasks";
 
 export default function LoginPage() {
     return (
       <div>
         <Phrases/>
-        <div></div>
+        <Task/>
       </div>
     );
   }

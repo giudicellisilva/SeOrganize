@@ -6,10 +6,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import Phrase from "@/interfaces/Phrase";
 import PhraseModal from "./components/PhraseModal";
-import { deletePhrase } from "@/api/phrases/deletePhrase";
-import { getPhrase } from "@/api/phrases/getPhrase";
-import { putPhrase } from "@/api/phrases/putPhrase";
-import { postPhrase } from "@/api/phrases/postPhrase";
+import { deletePhrase } from "@/api/phrase/deletePhrase";
+import { getPhrase } from "@/api/phrase/getPhrase";
+import { putPhrase } from "@/api/phrase/putPhrase";
+import { postPhrase } from "@/api/phrase/postPhrase";
 
 const Phrases = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

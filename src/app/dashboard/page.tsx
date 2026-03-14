@@ -1,10 +1,11 @@
-import Dashboard from "@/components/Dashboard";
+import Phrases from "./components/Phrases";
 
 export default function LoginPage() {
     return (
-        <>
-            <Dashboard/>
-        </>
+      <div>
+        <Phrases/>
+        <div></div>
+      </div>
     );
   }
   

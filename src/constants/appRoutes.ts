@@ -5,6 +5,8 @@ export const APP_ROUTES = {
     public: {
         home: '/',
         login: '/login',
-        forget_password: "/forget-password"
+        register: '/register',
+        forget_password: "/forget-password",
+
     }
 };

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { checkIsPublicRoute } from "@/functions/checkIsPublicRoute";
 import PrivateRoute from "@/components/PrivateRoute";
 import ProviderQuery from "@/components/ProviderQuery";
+import ProviderRedux from "@/components/ProviderRedux";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,15 +29,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const pathName = usePathname();
-  console.log("pathName", pathName);
 
   const isPlublicPage = checkIsPublicRoute(pathName);
-  console.log(isPlublicPage);
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ProviderQuery>
-          {isPlublicPage ? children : <PrivateRoute> {children} </PrivateRoute>}
+          <ProviderRedux>
+            {isPlublicPage ? children : <PrivateRoute> {children} </PrivateRoute>}
+          </ProviderRedux>
         </ProviderQuery>
         
       </body>

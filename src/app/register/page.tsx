@@ -34,7 +34,7 @@ const Register = () => {
       if (password !== confirmPassword) {
         throw new Error("The passwords don't match.");
       }
-      return await postRegister(user);
+      return await postRegister(user, password);
     },
     onSuccess: (res) => {
       mutateUser();

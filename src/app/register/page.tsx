@@ -1,167 +1,165 @@
 'use client';
 import { useState } from "react";
-import registerModule from "./register.module.scss";
+import styles from "./register.module.scss"; 
 import { useMutation } from "@tanstack/react-query";
 import { postRegister } from "@/api/user/postUserRegister";
+import { postLogin } from "@/api/login/postLogin";
 import { useRouter } from "next/navigation";
 import { APP_ROUTES } from "@/constants/appRoutes";
 import { setTokenHeader } from "@/functions/setTokenHeader";
 import { setStorageItem } from "@/functions/localStore";
 import { useDispatch } from "react-redux";
-import User from "@/interfaces/User";
-import { postLogin } from "@/api/login/postLogin";
 import { setStateUser } from "@/redux/user/userSlice";
+import User from "@/interfaces/User";
 
 const Register = () => {
+    const [user, setUser] = useState<User>({
+        id: "",
+        name: "",
+        surname: "",
+        email: "",
+        birth: new Date(),
+        roles: [{ id: "", name: "" }],
+    });
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
-  const [user, setUser] = useState<User>({
-    id: "",
-    name: "",
-    surname: "",
-    email: "",
-    birth: new Date(),
-    role: [],
-  });
-  const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+    const { push } = useRouter();
 
-  const [confirmPassword, setConfirmPassword] = useState("");
+    // Mutação de Login (disparada após o registro com sucesso)
+    const { mutate: mutateLogin, isPending: isLoginPending } = useMutation({
+        mutationFn: async () => {
+            return await postLogin(user.email, password);
+        },
+        onSuccess: (res) => {
+            setTokenHeader(res.data.accessToken);
+            setStorageItem("token", res.data.accessToken);
+            setStorageItem("refreshToken", res.data.refreshToken);
+            
+            // Seguindo o padrão do seu login para salvar o usuário
+            dispatch(setStateUser(res.data.user)); 
+            setStorageItem("user", res.data.user);
+            
+            push(APP_ROUTES.private.dashboard);
+        },
+        onError: (err: any) => {
+            setErrorMessage("Erro ao realizar login automático.");
+            console.error(err);
+        }
+    });
 
-  const dispatch = useDispatch();
-  const { push } = useRouter();
+    // Mutação de Registro
+    const { mutate, isPending: isRegisterPending } = useMutation({
+        mutationFn: async () => {
+            setErrorMessage("");
+            if (password !== confirmPassword) {
+                throw new Error("As senhas não coincidem.");
+            }
+            return await postRegister(user, password);
+        },
+        onSuccess: () => {
+            mutateLogin();
+        },
+        onError: (err: any) => {
+            const message = err.response?.data?.message || err.message || "Erro ao criar conta.";
+            setErrorMessage(message);
+            console.error(err);
+        }
+    });
 
-  const { status, mutate } = useMutation({
-    mutationFn: async () => {
-      if (password !== confirmPassword) {
-        throw new Error("The passwords don't match.");
-      }
-      return await postRegister(user, password);
-    },
-    onSuccess: (res) => {
-      mutateUser();
-    },
-    onError: (e) => {
-      console.error(e);
-    }
-  });
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === "Enter" && !isRegisterPending) {
+            mutate();
+        }
+    };
 
-  const { mutate: mutateUser } = useMutation({
-    mutationFn: async () => {
-      return await postLogin(user.email, password);
-    },
-    onSuccess: (res) => {
-      setTokenHeader(res.data.accessToken);
-      setStorageItem("token", res.data.accessToken);
-      setStorageItem("refreshToken", res.data.refreshToken);
-      const userSave = {
-        ...user,
-        id: String(res.data[0]._id)
-      };
+    const isPending = isRegisterPending || isLoginPending;
 
-      dispatch(setStateUser(userSave));
-      setStorageItem("user", userSave);
-      push(APP_ROUTES.private.dashboard);
-    },
-    onError: (e) => console.error(e)
-  });
+    return (
+        <div className={styles.register}>
+            <div className={styles.register__content}>
+                <h1 className={styles.register__content__title}>Cadastro</h1>
 
-  const getEnter = (e: any) => {
-    if (e.key === "Enter") mutate();
-  };
+                <div className={styles.register__content__labels}>
+                    <div className={styles.contentLabel}>
+                        <label className={styles.contentLabel__label}>Nome</label>
+                        <input
+                            className={styles.contentLabel__input}
+                            value={user.name}
+                            onChange={(e) => setUser({ ...user, name: e.target.value })}
+                            type="text"
+                            placeholder="Seu nome"
+                        />
+                    </div>
 
-  return (
-    <div className={registerModule.register}>
-      <div className={registerModule.register__content}>
-        <h1 className={registerModule.register__content__title}>Register</h1>
+                    <div className={styles.contentLabel}>
+                        <label className={styles.contentLabel__label}>Sobrenome</label>
+                        <input
+                            className={styles.contentLabel__input}
+                            value={user.surname}
+                            onChange={(e) => setUser({ ...user, surname: e.target.value })}
+                            type="text"
+                            placeholder="Seu sobrenome"
+                        />
+                    </div>
 
-        <div className={registerModule.register__content__labels}>
-          <div className={registerModule.contentLabel}>
-            <label className={registerModule.contentLabel__label}>Name</label>
-            <input
-              className={registerModule.contentLabel__input}
-              value={user.name}
-              onChange={(e) => setUser({
-                ...user,
-                name: e.target.value
-              })}
-              type="name"
-            />
-          </div>
+                    <div className={styles.contentLabel}>
+                        <label className={styles.contentLabel__label}>Email</label>
+                        <input
+                            className={styles.contentLabel__input}
+                            value={user.email}
+                            onChange={(e) => setUser({ ...user, email: e.target.value })}
+                            type="email"
+                            placeholder="exemplo@email.com"
+                        />
+                    </div>
 
-          <div className={registerModule.contentLabel}>
-            <label className={registerModule.contentLabel__label}>Surname</label>
-            <input
-              className={registerModule.contentLabel__input}
-              value={user.surname}
-              onChange={(e) => setUser({
-                ...user,
-                surname: e.target.value
-              })}
-              type="surname"
-            />
-          </div>
+                    <div className={styles.contentLabel}>
+                        <label className={styles.contentLabel__label}>Senha</label>
+                        <input
+                            className={styles.contentLabel__input}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            type="password"
+                        />
+                    </div>
 
-          <div className={registerModule.contentLabel}>
-            <label className={registerModule.contentLabel__label}>Email</label>
-            <input
-              className={registerModule.contentLabel__input}
-              value={user.email}
-              onChange={(e) => setUser({
-                ...user,
-                email: e.target.value
-              })}
-              type="email"
-            />
-          </div>
+                    <div className={styles.contentLabel}>
+                        <label className={styles.contentLabel__label}>Confirmar Senha</label>
+                        <input
+                            className={styles.contentLabel__input}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            type="password"
+                            onKeyUp={handleKeyDown}
+                        />
+                    </div>
+                </div>
 
-          <div className={registerModule.contentLabel}>
-            <label className={registerModule.contentLabel__label}>Email</label>
-            <input
-              className={registerModule.contentLabel__input}
-              value={user.email}
-              onChange={(e) => setUser({
-                ...user,
-                email: e.target.value
-              })}
-              type="email"
-            />
-          </div>
+                {errorMessage && <span className={styles.error_message}>{errorMessage}</span>}
 
-          <div className={registerModule.contentLabel}>
-            <label className={registerModule.contentLabel__label}>Password</label>
-            <input
-              className={registerModule.contentLabel__input}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              type="password"
-            />
-          </div>
+                <button
+                    className={styles.register__content__button}
+                    onClick={() => mutate()}
+                    disabled={isPending}
+                >
+                    {isPending ? "Processando..." : "Criar Conta"}
+                </button>
 
-          <div className={registerModule.contentLabel}>
-            <label className={registerModule.contentLabel__label}>Confirm Password</label>
-            <input
-              className={registerModule.contentLabel__input}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              type="password"
-              onKeyUp={getEnter}
-            />
-          </div>
-
+                <div className={styles.footer_actions}>
+                    <span>Já tem uma conta?</span>
+                    <button 
+                        className={styles.login_button} 
+                        onClick={() => push(APP_ROUTES.public.login)}
+                    >
+                        Fazer Login
+                    </button>
+                </div>
+            </div>
         </div>
-
-        <button
-          className={registerModule.register__content__button}
-          onClick={() => mutate()}
-        >
-          Register
-        </button>
-
-        <span className={registerModule.register__content__status}>
-          Status: {status}
-        </span>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default Register;

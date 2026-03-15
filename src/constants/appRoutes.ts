@@ -1,6 +1,11 @@
 export const APP_ROUTES = {
     private: {
         dashboard: "/dashboard",
+        config: "/config",
+        tasks: "/tasks",
+        phrases: "/phrases",
+        subscribe: "/subscribe",
+        analytics: "/analytics",
     },
     public: {
         home: '/',

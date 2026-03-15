@@ -1,0 +1,48 @@
+@import "./src/app/_variables";
+
+.header {
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  background-color: transparent;
+
+  &__container {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__logo { 
+    height: auto;
+    cursor: pointer; 
+  }
+  
+  &__actions {
+    display: flex;
+    gap: 20px;
+
+    &__login {
+      background: none;
+      border: none;
+      color: $text-secondary;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    &__register {
+      background-color: $color-primary;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 12px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba($color-primary, 0.3);
+      &:hover { transform: scale(1.05); }
+    }
+  }
+}

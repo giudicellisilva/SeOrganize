@@ -13,7 +13,7 @@ const Task = () => {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string>("");
-  const [task, setTask] = useState<ITask>({ id: "", title: "", type: "SIMPLE" });
+  const [task, setTask] = useState<ITask>({ id: "", title: "", type: "SIMPLE", completed: false });
 
   const queryClient = useQueryClient();
 
@@ -46,7 +46,7 @@ const Task = () => {
   });
 
   const resetForm = () => {
-    setTask({ id: "", title: "", type: "SIMPLE" });
+    setTask({ id: "", title: "", type: "SIMPLE", completed: false });
     setEditingId("");
     setIsModalOpen(false);
   };
@@ -57,35 +57,74 @@ const Task = () => {
     setIsModalOpen(true);
   };
 
+  const mutateToggleCheck = (item: ITask) => {
+    const updatedTask = { ...item, completed: !item.completed };
+  };
+
   return (
     <div className={style.task}>
-      <div className={style.task__calendar}>
-        <input 
-          type="date" 
-          className={style.task__calendar__input}
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-        />
+      <div className={style.task__header}>
+        <div className={style.task__header__calendar}>
+          <input 
+            type="date" 
+            className={style.task__header__calendar__input}
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
+        </div>
+        <button className={style.task__addButton} onClick={() => setIsModalOpen(true)}>
+          Adicionar Tarefa
+        </button>
       </div>
 
-      <div className={style.task__content}>
-        {tasks.map((item) => (
-          <div key={item.id} className={style.task__content__item}>
-            <div className={style.task__content__item__info}>
-              <strong>{item.title}</strong>
-              <span>{item.type}</span>
-            </div>
-            <div className={style.task__content__item__actions}>
-              <button className={style.edit} onClick={() => handleEditSetup(item)}>Editar</button>
-              <button className={style.delete} onClick={() => mutateDelete(item.id)}>Excluir</button>
-            </div>
-          </div>
-        ))}
+      
+      <div className={style.task__container}>
+        <table className={style.taskTable}>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Tarefa</th>
+              <th>Categoria</th>
+              <th>Horário</th>
+              <th className={style.textCenter}>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tasks.map((item) => (
+              <tr key={item.id} className={style.taskRow}>
+                <td className={style.check}>
+                  <input 
+                    type="checkbox"
+                  />
+                </td>
+                <td className={style.taskTitle}>
+                  <strong>{item.title}</strong>
+                </td>
+                <td>
+                  <span className={`${style.tag} ${style[`tag__${item.type.toLowerCase()}`]}`}>
+                    {item.type}
+                  </span>
+                </td>
+                <td className={style.taskTime}>
+                  {/* Supondo que você tenha item.time ou item.date */}
+                  {/* {item.time || "09:00"}  */}
+                  9:35
+                </td>
+                <td>
+                  <div className={style.taskActions}>
+                    <button className={style.edit} onClick={() => handleEditSetup(item)}>
+                      Editar
+                    </button>
+                    <button className={style.delete} onClick={() => mutateDelete(item.id)}>
+                      Excluir
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-
-      <button className={style.task__addButton} onClick={() => setIsModalOpen(true)}>
-        Nova Tarefa
-      </button>
 
       <TaskModal 
         isOpen={isModalOpen}

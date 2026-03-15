@@ -5,18 +5,24 @@
   display: flex;
   justify-content: center;
   background-color: $background;
+  margin-top: 8px;
 
   &__content {
     width: 100%;
     max-width: 450px;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 30px;
-    padding: 40px;
+    justify-content: space-between;
+    padding: 20px 12px;
     border-radius: 20px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     background-color: white;
+
+    &__div{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
 
     &__text {
       color: $text-secondary;
@@ -30,12 +36,19 @@
     }
 
     &__button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background-color: $color-primary;
-      padding: 10px 30px;
+      padding: 4px 7px;
       border: 1px solid $color-secondary;
       color: $text-secondary;
       border-radius: 12px;
       cursor: pointer;
+      img{
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 

@@ -16,6 +16,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-redux": "^9.2.0",
+    "recharts": "^3.8.0",
     "sass": "^1.83.4",
     "typed-scss-modules": "^8.1.1"
   },

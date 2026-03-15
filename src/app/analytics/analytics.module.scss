@@ -1,0 +1,61 @@
+@import "./src/app/_variables";
+
+.analytics {
+  width: 100%;
+  min-height: 100vh;
+  padding: 40px;
+  background-color: $background;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  &__header {
+    h1 { color: $text-secondary; font-size: 2rem; margin: 0; }
+    p { color: #666; font-size: 1rem; }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 25px;
+  }
+
+  .card {
+    background: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    
+    h3 { 
+      color: $text-secondary; 
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      border-left: 4px solid $color-primary;
+      padding-left: 10px;
+    }
+  }
+
+  &__stats {
+    display: flex;
+    gap: 20px;
+    
+    .statBox {
+      flex: 1;
+      background-color: $color-secondary;
+      color: white;
+      padding: 30px;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      
+      span { opacity: 0.8; font-size: 0.9rem; }
+      strong { font-size: 2.5rem; }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .analytics__grid { grid-template-columns: 1fr; }
+  .analytics__stats { flex-direction: column; }
+}

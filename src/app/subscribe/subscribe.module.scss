@@ -1,0 +1,135 @@
+@import "./src/app/_variables";
+
+.subiscriber {
+  width: 100%;
+  min-height: calc(100vh - 80px); // Descontando o Header
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $background;
+  padding: 40px 20px;
+
+  &__card {
+    width: 100%;
+    max-width: 420px;
+    background: white;
+    padding: 50px 40px;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba($color-secondary, 0.1);
+
+    // Detalhe no topo para indicar categoria PRO
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, $color-primary, $color-secondary);
+    }
+
+    &__title {
+      color: $text-secondary;
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 0;
+      text-align: center;
+    }
+
+    &__description {
+      color: #666;
+      text-align: center;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin: 0;
+
+      strong {
+        color: $color-primary;
+      }
+    }
+
+    &__price {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+      margin: 10px 0;
+
+      span {
+        font-size: 3rem;
+        font-weight: 900;
+        color: $text-primary; // O laranja que você definiu
+        letter-spacing: -1px;
+      }
+
+      small {
+        font-size: 1.1rem;
+        color: $text-secondary;
+        font-weight: 600;
+      }
+    }
+
+    &__list {
+      width: 100%;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+
+      li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: $text-secondary;
+        font-weight: 500;
+        font-size: 1rem;
+
+        // Estilizando o check se preferir tirar o emoji depois
+        &::before {
+          content: "✓";
+          color: $color-primary;
+          font-weight: 900;
+        }
+      }
+    }
+
+    &__button {
+      width: 100%;
+      background-color: $color-primary;
+      color: white; // Texto branco no laranja para melhor leitura
+      padding: 18px;
+      border: none;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 20px rgba($color-primary, 0.25);
+
+      &:hover:not(:disabled) {
+        transform: translateY(-4px);
+        filter: brightness(1.1);
+        box-shadow: 0 15px 25px rgba($color-primary, 0.35);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      &:disabled {
+        background-color: #ccc;
+        box-shadow: none;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

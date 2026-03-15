@@ -4,5 +4,5 @@ export default interface User{
     surname: string
     email: string;
     birth: Date;
-    role: [];
+    roles: [{ id: string, name: string }];
 }

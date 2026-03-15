@@ -2,77 +2,139 @@
 
 .task {
   width: 100%;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: column; // Ajustado para empilhar header e container
   gap: 20px;
-  padding: 20px;
+  padding: 40px 20px;
   background-color: $background;
 
-  &__calendar {
-    background-color: white;
-    padding: 15px;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    border-top: 4px solid $color-primary;
-    
-    &__input {
-      padding: 10px;
-      border: 1.2px solid $color-secondary;
-      border-radius: 8px;
-      color: $text-secondary;
-      outline: none;
+  &__header {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; // Alinha o botão com o input
+    gap: 20px;
+
+    &__calendar {
+      background-color: white;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      border-top: 4px solid $color-primary;
+
+      &__input {
+        padding: 10px;
+        border: 1.2px solid rgba($color-secondary, 0.2);
+        border-radius: 8px;
+        color: $text-secondary;
+        outline: none;
+        font-family: inherit;
+
+        &:focus { border-color: $color-primary; }
+      }
     }
   }
 
-  &__content {
+  &__container {
     width: 100%;
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-
-    &__item {
-      background-color: white;
-      padding: 20px;
-      border-radius: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-right: 5px solid $color-secondary;
-
-      &__info {
-        display: flex;
-        flex-direction: column;
-        
-        strong { color: $text-secondary; font-size: 1.1rem; }
-        span { color: $text-primary; font-size: 0.8rem; font-weight: bold; }
-      }
-
-      &__actions {
-        display: flex;
-        gap: 10px;
-        button {
-          background: none;
-          border: none;
-          cursor: pointer;
-          font-weight: bold;
-          &:hover { opacity: 0.7; }
-        }
-        .edit { color: $color-secondary; }
-        .delete { color: #e74c3c; }
-      }
-    }
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    overflow-x: auto;
   }
 
   &__addButton {
     background-color: $color-primary;
-    color: $text-secondary;
-    padding: 15px 40px;
+    color: white; // Texto branco para melhor contraste
+    padding: 12px 30px;
     border-radius: 12px;
-    border: 1px solid $color-secondary;
+    border: none;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba($color-primary, 0.2);
+
+    &:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+  }
+}
+
+// Estilos específicos da Tabela
+.taskTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  thead th {
+    padding: 15px;
+    color: $text-secondary;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid $background;
+  }
+
+  .taskRow {
+    border-bottom: 1px solid rgba($color-secondary, 0.05);
+    transition: background 0.2s;
+
+    &:hover { background-color: rgba($background, 0.4); }
+  }
+
+  td { padding: 18px 15px; vertical-align: middle; }
+}
+
+.taskTitle strong { color: $text-secondary; font-size: 1rem; }
+
+.tag {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  background-color: $background;
+  color: $text-primary;
+  text-transform: uppercase;
+}
+
+.taskTime { font-weight: bold; color: $color-secondary; }
+
+.taskActions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 5px;
+    transition: opacity 0.2s;
+    &:hover { opacity: 0.7; }
+  }
+  .edit { color: $color-secondary; }
+  .delete { color: #e74c3c; }
+}
+
+.textCenter { text-align: center; }
+
+.check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: $color-primary; // Deixa o check com o laranja do seu tema
   }
 }

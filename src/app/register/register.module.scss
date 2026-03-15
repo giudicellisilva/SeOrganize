@@ -3,62 +3,126 @@
 .register {
   width: 100vw;
   height: 100vh;
-
   display: flex;
   justify-content: center;
-
-  padding: 50px;
+  align-items: center;
+  background-color: $background;
+  padding: 20px;
 
   &__content {
-    width: 70%;
+    width: 100%;
+    max-width: 450px;
+    min-height: 500px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 80px;
-    padding-top: 30px;
-
-    background-image: url("../../../public/assets/backgorundLogin.png");
+    justify-content: center;
+    gap: 30px; // Um pouco menor que o login para caber todos os campos
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    
+    // Background consistente com o Login
+    background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), 
+                      url("../../../public/assets/backgorundLogin.png");
     background-size: cover;
+    background-position: center;
 
     &__title {
-      color: $text-primary;
+      color: $text-secondary;
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin: 0;
     }
 
     &__labels {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px; // Gap reduzido para acomodar mais campos de cadastro
 
       .contentLabel {
         display: flex;
         flex-direction: column;
-
-        margin-top: 10px;
+        gap: 6px;
 
         &__label {
-          color: $text-primary;
+          color: $text-secondary;
+          font-weight: 600;
+          font-size: 0.85rem;
         }
 
         &__input {
-          background-color: $background;
-          min-width: 200px;
-          padding: .12rem .5rem;
-          border-radius: 5px;
+          background-color: rgba($background, 0.8);
+          padding: 10px 15px;
+          border-radius: 8px;
           outline: none;
-          border: 1.2px solid $color-secondary;
-        }
+          border: 1.5px solid rgba($color-secondary, 0.3);
+          transition: all 0.3s ease;
 
+          &:focus {
+            border-color: $color-primary;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba($color-primary, 0.1);
+          }
+        }
       }
     }
 
     &__button {
+      width: 100%;
       background-color: $color-primary;
-      padding: 10px 57px;
-      border: 1px solid $color-secondary;
-      color: $text-secondary;
+      padding: 14px;
+      border: none;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
       border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba($color-primary, 0.3);
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        filter: brightness(1.1);
+        box-shadow: 0 6px 15px rgba($color-primary, 0.4);
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
     }
 
     &__status {
-      background-color: $background;
-      padding: 2px 7px;
+      font-size: 0.8rem;
+      color: $text-secondary;
+      background-color: rgba($background, 0.5);
+      padding: 4px 12px;
+      border-radius: 20px;
     }
   }
+}
+
+// Estilo para o link de voltar ao login
+.footer_actions {
+  display: flex;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: $text-secondary;
+
+  .login_button {
+    background: none;
+    border: none;
+    color: $color-primary;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.error_message {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  font-weight: bold;
 }

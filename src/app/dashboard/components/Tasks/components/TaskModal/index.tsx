@@ -1,6 +1,8 @@
 'use client';
 import ITask from "@/interfaces/Task";
 import style from "./taskModal.module.scss";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 interface TaskModalProps {
   isOpen: boolean;
@@ -13,6 +15,9 @@ interface TaskModalProps {
 }
 
 const TaskModal = ({ isOpen, onClose, task, setTask, editingId, onSave, onEdit }: TaskModalProps) => {
+  const user = useSelector((state: RootState) => state.user);
+  const isPro = user?.roles?.[0]?.name === "SUBSCRIBER" ? true : false;
+
   if (!isOpen) return null;
 
   return (
@@ -62,19 +67,30 @@ const TaskModal = ({ isOpen, onClose, task, setTask, editingId, onSave, onEdit }
               onChange={(e) => setTask({ ...task, type: e.target.value as any })}
             >
               <option value="SIMPLE">Simples</option>
-              <option value="MUSIC">Música</option>
-              <option value="FITNESS">Fitness</option>
+              <option value="MUSIC">Música (Free)</option>
+              <option value="WORK">Trabalho (Free)</option>
+              
+              <option value="STUDY" disabled={!isPro}>
+                Estudo {!isPro && "🔒"}
+              </option>
+              <option value="FITNESS" disabled={!isPro}>
+                Fitness {!isPro && "🔒"}
+              </option>
             </select>
+            {!isPro && (
+              <small className={style.proWarning}>Assine o plano PRO para liberar novos tipos!</small>
+            )}
           </div>
 
-          <button className={style.taskModal__container__form__saveBtn} onClick={() => editingId ? onEdit(task) : onSave(task)}>
+          <button 
+            className={style.taskModal__container__form__saveBtn} 
+            onClick={() => editingId ? onEdit(task) : onSave(task)}
+          >
             {editingId ? "Salvar Alterações" : "Criar Tarefa"}
           </button>
         </div>
 
-        <button className={style.taskModal__container__close} onClick={onClose}>
-          Fechar
-        </button>
+        <button className={style.taskModal__container__close} onClick={onClose}>Fechar</button>
       </div>
     </div>
   );

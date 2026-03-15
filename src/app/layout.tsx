@@ -7,6 +7,8 @@ import { checkIsPublicRoute } from "@/functions/checkIsPublicRoute";
 import PrivateRoute from "@/components/PrivateRoute";
 import ProviderQuery from "@/components/ProviderQuery";
 import ProviderRedux from "@/components/ProviderRedux";
+import HeaderPublic from "@/components/HeaderPublic";
+import HeaderPrivate from "@/components/HeaderPrivate";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,13 +32,14 @@ export default function RootLayout({
 }>) {
   const pathName = usePathname();
 
-  const isPlublicPage = checkIsPublicRoute(pathName);
+  const isPublicPage = checkIsPublicRoute(pathName);
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ProviderQuery>
           <ProviderRedux>
-            {isPlublicPage ? children : <PrivateRoute> {children} </PrivateRoute>}
+            {isPublicPage ? <HeaderPublic /> : <HeaderPrivate />}
+            {isPublicPage ? children : <PrivateRoute> {children} </PrivateRoute>}
           </ProviderRedux>
         </ProviderQuery>
         

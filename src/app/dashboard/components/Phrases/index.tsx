@@ -62,12 +62,14 @@ const Phrases = () => {
   return (
     <div className={style.phrases}>
       <div className={style.phrases__content}>
-        <span className={style.phrases__content__text}>
+        <div className={style.phrases__content__div}>
+          <span className={style.phrases__content__text}>
           "{phrases[0]?.phrase || "Sua frase aparecerá aqui"}"
-        </span>
-        <span className={style.phrases__content__author}>- {phrases[0]?.author || "Autor"}</span>
+          </span>
+          <span className={style.phrases__content__author}>- {phrases[0]?.author || "Autor"}</span>
+        </div>
         <button className={style.phrases__content__button} onClick={() => setIsModalOpen(true)}>
-          Gerenciar Frases
+          <img src="/assets/config.png" alt="Editar Frase"/>
         </button>
       </div>
 

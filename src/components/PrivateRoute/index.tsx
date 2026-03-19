@@ -7,7 +7,7 @@ import { getStorageItem, setStorageItem } from "@/functions/localStore";
 import { useMutation } from "@tanstack/react-query";
 import { postValidateToken } from "@/api/login/postValidateToken";
 import { APP_ROUTES } from "@/constants/appRoutes";
-import { setTokenHeader } from "@/functions/setTokenHeader";
+import { setTokenHeader } from "@/functions/authHeader";
 import { postRefreshToken } from "@/api/login/postRefreshToken";
 
 

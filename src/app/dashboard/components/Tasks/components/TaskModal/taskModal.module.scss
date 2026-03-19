@@ -6,55 +6,115 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
   z-index: 1100;
 
   &__container {
-    width: 100%;
-    max-width: 450px;
+    width: 90%;
+    max-width: 500px; // Aumentado levemente para comportar novos campos
     background-color: white;
     padding: 30px;
-    border-radius: 20px;
+    border-radius: 24px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    max-height: 90vh;
+    overflow-y: auto; // Garante scroll se o formulário crescer
 
-    &__title { color: $text-primary; }
+    &__title { 
+      color: $text-primary; 
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
 
     &__form {
       display: flex;
       flex-direction: column;
-      gap: 15px;
-
-      label { color: $text-secondary; font-weight: bold; font-size: 0.9rem; }
+      gap: 12px;
 
       &__input {
+        width: 100%;
         background-color: $background;
-        padding: 12px;
+        padding: 10px 12px;
         border-radius: 8px;
-        border: 1.2px solid $color-secondary;
+        border: 1.2px solid rgba($color-secondary, 0.2);
+        color: $text-secondary;
         outline: none;
+        transition: border-color 0.2s;
+
+        &:focus { border-color: $color-primary; }
       }
 
       &__saveBtn {
         background-color: $color-primary;
-        color: $text-secondary;
-        padding: 12px;
+        color: white;
+        padding: 14px;
         border-radius: 12px;
-        border: 1px solid $color-secondary;
+        border: none;
         font-weight: bold;
+        font-size: 1rem;
         cursor: pointer;
         margin-top: 10px;
+        transition: all 0.2s;
+
+        &:hover { filter: brightness(1.1); transform: translateY(-2px); }
       }
     }
 
     &__close {
       background: none;
-      border: 1px solid $color-secondary;
+      border: 1.2px solid rgba($color-secondary, 0.3);
       color: $text-secondary;
-      padding: 8px;
-      border-radius: 8px;
+      padding: 10px;
+      border-radius: 10px;
       cursor: pointer;
+      font-weight: 600;
     }
   }
+}
+
+.contentLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  &__label {
+    color: $text-secondary;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+.dateTimeGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.dynamicFields {
+  border-top: 1px dashed rgba($color-secondary, 0.1);
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fadeIn 0.3s ease;
+}
+
+.proWarning {
+  color: $color-primary;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: rgba($color-primary, 0.1);
+  padding: 8px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }

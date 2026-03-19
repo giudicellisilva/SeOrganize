@@ -30,7 +30,13 @@
       border: none;
       color: $text-secondary;
       font-weight: bold;
+      font-size: 16px;
       cursor: pointer;
+      
+      &:hover {
+        color: $color-primary;
+        transform: scale(1.05) 
+      }
     }
 
     &__register {

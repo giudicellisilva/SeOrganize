@@ -55,7 +55,7 @@
         &__input {
           background-color: rgba($background, 0.8);
           min-width: 200px;
-          padding: 12px 15px; // Padding mais confortável
+          padding: 12px 15px;
           border-radius: 8px;
           outline: none;
           border: 1.5px solid rgba($color-secondary, 0.3);
@@ -91,6 +91,12 @@
 
       &:active {
         transform: translateY(0);
+      }
+
+      &:disabled {
+        background-color: rgba($color-primary, 0.5);
+        cursor: not-allowed;
+        box-shadow: none;
       }
     }
 

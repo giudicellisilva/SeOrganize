@@ -67,7 +67,6 @@
   }
 }
 
-// Estilos específicos da Tabela
 .taskTable {
   width: 100%;
   border-collapse: collapse;
@@ -91,7 +90,16 @@
   td { padding: 18px 15px; vertical-align: middle; }
 }
 
-.taskTitle strong { color: $text-secondary; font-size: 1rem; }
+.taskTitle strong { 
+  color: $text-secondary; 
+  font-size: 1rem;
+  cursor: pointer; 
+}
+
+.taskTitle strong:hover { 
+  color: $color-primary; 
+  text-decoration: underline; 
+}
 
 .tag {
   padding: 5px 12px;

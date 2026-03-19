@@ -1,0 +1,117 @@
+@import "./src/app/_variables";
+
+.taskModal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1100;
+
+  &__container {
+    width: 90%;
+    max-width: 450px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+
+    &__title { 
+      color: $text-primary; 
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin: 5px 0;
+    }
+
+    &__close {
+      background-color: $background;
+      border: 1.2px solid rgba($color-secondary, 0.3);
+      color: $text-secondary;
+      padding: 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+      margin-top: 10px;
+
+      &:hover {
+        background-color: $color-secondary;
+        color: white;
+      }
+    }
+  }
+}
+
+.detailHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .tag {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    background-color: $background;
+    color: $text-secondary;
+    text-transform: uppercase;
+    border: 1px solid rgba($color-secondary, 0.1);
+  }
+}
+
+.statusCompleted { color: #2a9d8f; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; }
+.statusPending { color: $color-primary; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; }
+
+.detailContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .detailRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba($color-secondary, 0.05);
+    
+    strong { font-size: 0.85rem; color: $text-secondary; opacity: 0.8; }
+    span, a { font-size: 0.95rem; color: $color-secondary; font-weight: 600; text-decoration: none; }
+    
+    a {
+      color: $color-primary;
+      &:hover { text-decoration: underline; }
+    }
+  }
+}
+
+.specificDetails {
+  background-color: rgba($background, 0.5);
+  padding: 10px 15px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detailDescription {
+  margin-top: 5px;
+  strong { display: block; margin-bottom: 8px; font-size: 0.85rem; color: $text-secondary; opacity: 0.8; }
+  p { 
+    background: $background;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: $text-secondary;
+    margin: 0;
+  }
+}
+
+.priority__high { color: #e76f51 !important; }
+.priority__medium { color: #f4a261 !important; }
+.priority__low { color: #2a9d8f !important; }

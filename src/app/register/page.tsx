@@ -6,7 +6,7 @@ import { postRegister } from "@/api/user/postUserRegister";
 import { postLogin } from "@/api/login/postLogin";
 import { useRouter } from "next/navigation";
 import { APP_ROUTES } from "@/constants/appRoutes";
-import { setTokenHeader } from "@/functions/setTokenHeader";
+import { setTokenHeader } from "@/functions/authHeader";
 import { setStorageItem } from "@/functions/localStore";
 import { useDispatch } from "react-redux";
 import { setStateUser } from "@/redux/user/userSlice";

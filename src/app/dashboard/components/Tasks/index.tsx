@@ -8,12 +8,35 @@ import { getTask } from "@/api/task/getTask";
 import { putTask } from "@/api/task/putTask";
 import { deleteTask } from "@/api/task/deleteTask";
 import { postTask } from "@/api/task/postTask";
+import { patchTaskComplete } from "@/api/task/patchTaskComplete";
+import TaskDetailModal from "./components/TaskDetailModal";
 
 const Task = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const today = new Date().toLocaleDateString('en-CA');
+  const [selectedDate, setSelectedDate] = useState(today);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string>("");
-  const [task, setTask] = useState<ITask>({ id: "", title: "", type: "SIMPLE", completed: false });
+  const [task, setTask] = useState<ITask>({ 
+    id: "", 
+    title: "", 
+    type: "SIMPLE", 
+    completed: false, 
+    time: "", 
+    date: today,
+    // Campos extras vazios para evitar 'controlled/uncontrolled input' warning
+    instrument: "",
+    sheetMusicLink: "",
+    repetitions: 0,
+    muscleGroup: "",
+    subject: "",
+    resourceLink: "",
+    durationMinutes: 0,
+    deadline: today,
+    project: "",
+    priority: "MEDIUM"
+  });
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+  const [selectedTaskDetail, setSelectedTaskDetail] = useState<ITask | null>(null);
 
   const queryClient = useQueryClient();
 
@@ -24,6 +47,10 @@ const Task = () => {
 
   const tasks: ITask[] = tasksData?.data || [];
 
+  const handleOpenDetail = (item: ITask) => {
+    setSelectedTaskDetail({ ...item, date: selectedDate });
+    setIsDetailOpen(true);
+  };
   const { mutate: mutateSave } = useMutation({
     mutationFn: async (task: ITask) => await postTask(task),
     onSuccess: () => {
@@ -31,12 +58,19 @@ const Task = () => {
       resetForm();
     }
   });
-  
+
   const { mutate: mutateEdit } = useMutation({
     mutationFn: async (task: ITask) => await putTask(task),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['tasks', selectedDate] });
       resetForm();
+    }
+  });
+
+  const { mutate: mutateToggleComplete } = useMutation({
+    mutationFn: async (id: string) => await patchTaskComplete(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['tasks', selectedDate] });
     }
   });
 
@@ -46,7 +80,24 @@ const Task = () => {
   });
 
   const resetForm = () => {
-    setTask({ id: "", title: "", type: "SIMPLE", completed: false });
+    setTask({ 
+      id: "", 
+      title: "", 
+      type: "SIMPLE", 
+      completed: false, 
+      time: "", 
+      date: today,
+      instrument: "",
+      sheetMusicLink: "",
+      repetitions: 0,
+      muscleGroup: "",
+      subject: "",
+      resourceLink: "",
+      durationMinutes: 0,
+      deadline: today,
+      project: "",
+      priority: "MEDIUM"
+    });
     setEditingId("");
     setIsModalOpen(false);
   };
@@ -55,10 +106,6 @@ const Task = () => {
     setEditingId(item.id);
     setTask({ ...item });
     setIsModalOpen(true);
-  };
-
-  const mutateToggleCheck = (item: ITask) => {
-    const updatedTask = { ...item, completed: !item.completed };
   };
 
   return (
@@ -77,7 +124,6 @@ const Task = () => {
         </button>
       </div>
 
-      
       <div className={style.task__container}>
         <table className={style.taskTable}>
           <thead>
@@ -91,14 +137,19 @@ const Task = () => {
           </thead>
           <tbody>
             {tasks.map((item) => (
-              <tr key={item.id} className={style.taskRow}>
+              <tr 
+                key={item.id} 
+                className={`${style.taskRow} ${item.completed ? style.completed : ""}`}
+              >
                 <td className={style.check}>
                   <input 
                     type="checkbox"
+                    checked={item.completed}
+                    onChange={() => mutateToggleComplete(item.id)}
                   />
                 </td>
                 <td className={style.taskTitle}>
-                  <strong>{item.title}</strong>
+                  <strong onClick={() => handleOpenDetail(item)}>{item.title}</strong>
                 </td>
                 <td>
                   <span className={`${style.tag} ${style[`tag__${item.type.toLowerCase()}`]}`}>
@@ -106,12 +157,11 @@ const Task = () => {
                   </span>
                 </td>
                 <td className={style.taskTime}>
-                  {/* Supondo que você tenha item.time ou item.date */}
-                  {/* {item.time || "09:00"}  */}
-                  9:35
+                  {item.time}
                 </td>
                 <td>
                   <div className={style.taskActions}>
+                    
                     <button className={style.edit} onClick={() => handleEditSetup(item)}>
                       Editar
                     </button>
@@ -134,6 +184,12 @@ const Task = () => {
         editingId={editingId}
         onSave={mutateSave}
         onEdit={mutateEdit}
+      />
+
+      <TaskDetailModal 
+        isOpen={isDetailOpen} 
+        onClose={() => setIsDetailOpen(false)} 
+        task={selectedTaskDetail} 
       />
     </div>
   );

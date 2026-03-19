@@ -6,6 +6,7 @@ import { RootState } from "@/redux/store";
 import { clearStateUser } from "@/redux/user/userSlice";
 import { removeStorageItem } from "@/functions/localStore";
 import styles from "./headerPrivate.module.scss";
+import { clearTokenHeader } from "@/functions/authHeader";
 
 const HeaderPrivate = () => {
   const { push } = useRouter();
@@ -17,6 +18,7 @@ const HeaderPrivate = () => {
     removeStorageItem("token");
     removeStorageItem("user");
     removeStorageItem("refreshToken");
+    clearTokenHeader();
     push("/");
   };
 

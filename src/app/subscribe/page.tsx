@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import SuccessModal from "./components/SuccessModal";
 import { getStorageItem, setStorageItem } from "@/functions/localStore";
 import { postRefreshToken } from "@/api/login/postRefreshToken";
-import { setTokenHeader } from "@/functions/setTokenHeader";
+import { setTokenHeader } from "@/functions/authHeader";
 import { APP_ROUTES } from "@/constants/appRoutes";
 import { useDispatch } from "react-redux";
 import { setStateUser } from "@/redux/user/userSlice";

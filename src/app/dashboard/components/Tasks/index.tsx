@@ -31,7 +31,7 @@ const Task = () => {
     subject: "",
     resourceLink: "",
     durationMinutes: 0,
-    deadline: today,
+    deadline: "",
     project: "",
     priority: "MEDIUM"
   });
@@ -94,7 +94,7 @@ const Task = () => {
       subject: "",
       resourceLink: "",
       durationMinutes: 0,
-      deadline: today,
+      deadline: "",
       project: "",
       priority: "MEDIUM"
     });

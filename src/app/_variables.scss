@@ -1,5 +1,5 @@
-$background: #F4F4F4;
-$color-primary: #FF8C42;
-$color-secondary: #264653;
-$text-primary: #FF8C42;
-$text-secondary: #264653;
+$background: var(--background);
+$color-primary: var(--color-primary);
+$color-secondary: var(--color-secondary);
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);

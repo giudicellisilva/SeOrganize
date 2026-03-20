@@ -6,6 +6,18 @@
 
 :root {
   --background: #F4F4F4;
+  --color-primary: #FF8C42;
+  --color-secondary: #264653;
+  --text-primary: #FF8C42;
+  --text-secondary: #264653;
+}
+
+[data-theme='dark'] {
+  --background: #121212;
+  --color-primary: #FF8C42;
+  --color-secondary: #457B9D;
+  --text-primary: #FF8C42;
+  --text-secondary: #E0E0E0;
 }
 
 body {
